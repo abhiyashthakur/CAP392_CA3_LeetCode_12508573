@@ -1,20 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class _08_LC412_FizzBuzz_Easy {
-    public static List<String> fizzBuzz(int n) {
-        List<String> result = new ArrayList<>();
+class Solution {
+    public List<String> fizzBuzz(int n) {
+        // Create an empty list of strings (just like answer = [] in Python)
+        List<String> answer = new ArrayList<>();
+        
+        // Loop from 1 up to n (inclusive)
         for (int i = 1; i <= n; i++) {
-            if (i % 15 == 0) result.add("FizzBuzz");
-            else if (i % 3 == 0) result.add("Fizz");
-            else if (i % 5 == 0) result.add("Buzz");
-            else result.add(String.valueOf(i));
+            if (i % 3 == 0 && i % 5 == 0) {
+                answer.add("FizzBuzz");
+            } else if (i % 3 == 0) {
+                answer.add("Fizz");
+            } else if (i % 5 == 0) {
+                answer.add("Buzz");
+            } else {
+                // Convert int i to a String (like str(i) in Python)
+                answer.add(String.valueOf(i)); 
+            }
         }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(fizzBuzz(3));
-        System.out.println(fizzBuzz(5));
+        
+        return answer;
     }
 }
