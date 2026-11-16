@@ -1,17 +1,11 @@
-import java.util.Arrays;
-
-class _09_LC344_ReverseString_Easy {
-    public static void reverseString(char[] s) {
-        for (int left = 0, right = s.length - 1; left < right; left++, right--) {
-            char temporary = s[left];
-            s[left] = s[right];
-            s[right] = temporary;
+class Solution {
+    public void reverseString(char[] s) {
+        // 1. Turn char[] into a StringBuilder and reverse it
+        String reversed = new StringBuilder(new String(s)).reverse().toString();
+        
+        // 2. Copy the reversed characters back into the original array 's'
+        for (int i = 0; i < s.length; i++) {
+            s[i] = reversed.charAt(i);
         }
-    }
-
-    public static void main(String[] args) {
-        char[] value = {'h', 'e', 'l', 'l', 'o'};
-        reverseString(value);
-        System.out.println(Arrays.equals(value, new char[]{'o', 'l', 'l', 'e', 'h'}));
     }
 }
