@@ -1,19 +1,17 @@
-class _12_LC151_ReverseWordsInString_Medium {
-    public static String reverseWords(String s) {
-        StringBuilder result = new StringBuilder();
-        int index = s.length() - 1;
-        while (index >= 0) {
-            while (index >= 0 && s.charAt(index) == ' ') index--;
-            if (index < 0) break;
-            int end = index;
-            while (index >= 0 && s.charAt(index) != ' ') index--;
-            if (result.length() > 0) result.append(' ');
-            result.append(s, index + 1, end + 1);
+class Solution {
+    public String reverseWords(String s) {
+        // 1. Remove leading and trailing spaces, then split by 1 or more spaces
+        String[] words = s.trim().split("\\s+");
+        
+        // 2. Append words in reverse order using StringBuilder
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]);
+            if (i > 0) {
+                sb.append(" ");
+            }
         }
-        return result.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(reverseWords("the sky is blue").equals("blue is sky the"));
+        
+        return sb.toString();
     }
 }
