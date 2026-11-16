@@ -1,21 +1,29 @@
+import java.util.HashMap;
 import java.util.Map;
 
-class _04_LC013_RomanToInteger_Easy {
-    private static final Map<Character, Integer> VALUES = Map.of(
-            'I', 1, 'V', 5, 'X', 10, 'L', 50,
-            'C', 100, 'D', 500, 'M', 1000);
-
-    public static int romanToInt(String s) {
-        int result = 0;
-        for (int i = 0; i < s.length(); i++) {
-            int current = VALUES.get(s.charAt(i));
-            if (i + 1 < s.length() && current < VALUES.get(s.charAt(i + 1))) result -= current;
-            else result += current;
+class Solution {
+    public int romanToInt(String s) {
+        // 1. Store the 7 symbols in a HashMap
+        Map<Character, Integer> roman = new HashMap<>();
+        roman.put('I', 1);
+        roman.put('V', 5);
+        roman.put('X', 10);
+        roman.put('L', 50);
+        roman.put('C', 100);
+        roman.put('D', 500);
+        roman.put('M', 1000);
+        
+        // 2. Replace the 6 subtraction pairs
+        s = s.replace("IV", "IIII").replace("IX", "VIIII");
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX");
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC");
+        
+        // 3. Loop through and sum them up
+        int total = 0;
+        for (char c : s.toCharArray()) {
+            total += roman.get(c);
         }
-        return result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(romanToInt("MCMXCIV") == 1994);
+        
+        return total;
     }
 }
