@@ -1,21 +1,19 @@
-class _11_LC007_ReverseInteger_Medium {
-    public static int reverse(int x) {
-        int result = 0;
-        while (x != 0) {
-            int digit = x % 10;
-            x /= 10;
-            if (result > Integer.MAX_VALUE / 10
-                    || result < Integer.MIN_VALUE / 10
-                    || (result == Integer.MAX_VALUE / 10 && digit > 7)
-                    || (result == Integer.MIN_VALUE / 10 && digit < -8)) return 0;
-            result = result * 10 + digit;
-        }
-        return result;
-    }
+class Solution {
+    public int reverse(int x) {
+        // 1. Remember if it was negative
+        int sign = (x < 0) ? -1 : 1;
 
-    public static void main(String[] args) {
-        System.out.println(reverse(123) == 321);
-        System.out.println(reverse(-123) == -321);
-        System.out.println(reverse(1534236469) == 0);
+        // 2. Convert to positive string (Math.abs(x) fails on Integer.MIN_VALUE, so strip '-' from string)
+        String s = String.valueOf(x).replace("-", "");
+
+        // 3. Reverse the string just like s[::-1] in Python
+        String reversed = new StringBuilder(s).reverse().toString();
+
+        // 4. Parse back to int — if it overflows 32-bit, catch it and return 0!
+        try {
+            return Integer.parseInt(reversed) * sign;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }
