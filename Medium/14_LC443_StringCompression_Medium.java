@@ -1,22 +1,32 @@
-class _14_LC443_StringCompression_Medium {
-    public static int compress(char[] chars) {
-        int write = 0;
-        int read = 0;
-        while (read < chars.length) {
-            char current = chars[read];
-            int start = read;
-            while (read < chars.length && chars[read] == current) read++;
-            chars[write++] = current;
-            int count = read - start;
+class Solution {
+    public int compress(char[] chars) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+
+        while (i < chars.length) {
+            char currentChar = chars[i];
+            int count = 0;
+
+            // Count how many times currentChar repeats in a row
+            while (i < chars.length && chars[i] == currentChar) {
+                count++;
+                i++;
+            }
+
+            // 1. Append the letter
+            sb.append(currentChar);
+
+            // 2. If it repeated more than once, append the number too
             if (count > 1) {
-                for (char digit : String.valueOf(count).toCharArray()) chars[write++] = digit;
+                sb.append(count); // Automatically splits 12 into '1' and '2'!
             }
         }
-        return write;
-    }
 
-    public static void main(String[] args) {
-        char[] chars = {'a', 'a', 'b', 'b', 'c', 'c', 'c'};
-        System.out.println(compress(chars) == 6);
+        // 3. Copy our compressed string back into the original 'chars' array
+        for (int j = 0; j < sb.length(); j++) {
+            chars[j] = sb.charAt(j);
+        }
+
+        return sb.length();
     }
 }
